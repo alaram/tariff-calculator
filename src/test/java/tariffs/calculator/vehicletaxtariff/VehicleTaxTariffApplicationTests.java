@@ -9,5 +9,4 @@ class VehicleTaxTariffApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
