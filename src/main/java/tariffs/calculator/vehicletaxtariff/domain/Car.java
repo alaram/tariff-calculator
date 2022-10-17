@@ -7,7 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+import javax.validation.constraints.NotBlank;
+
+import lombok.Data;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Car implements Vehicle {
 
     @Id
@@ -17,50 +28,16 @@ public class Car implements Vehicle {
     @JsonFormat(pattern = "yyyyy-mm-dd HH:mm:ss")
     private String date;
 
+    @NotBlank(message = "Vehicle type is required")
     private String vehicleType;
+
+    @NotBlank(message = "City is required")
     private String city;
+
     private String amount;
 
     @Override
     public String getVehicleType() {
         return "car";
-    }
-
-    public Car(){ }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
     }
 }
