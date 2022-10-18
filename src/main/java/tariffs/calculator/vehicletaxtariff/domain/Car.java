@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.Data;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -28,16 +26,10 @@ public class Car implements Vehicle {
     @JsonFormat(pattern = "yyyyy-mm-dd HH:mm:ss")
     private String date;
 
-    @NotBlank(message = "Vehicle type is required")
     private String vehicleType;
 
-    @NotBlank(message = "City is required")
     private String city;
 
-    private String amount;
-
     @Override
-    public String getVehicleType() {
-        return "car";
-    }
+    public String getVehicleType() { return "car"; }
 }

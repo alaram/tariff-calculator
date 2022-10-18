@@ -11,6 +11,7 @@ public class TariffTest {
     public void testCreateTariff() {
         Tariff tariff = TestDataCreator.createTariff();
         assertNotNull(tariff);
+        assertEquals(Integer.toString(8), tariff.getAmount());
         assertEquals("Göteborg", tariff.getCity());
     }
 }

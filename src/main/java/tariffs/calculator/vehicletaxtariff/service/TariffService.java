@@ -3,18 +3,6 @@ package tariffs.calculator.vehicletaxtariff.service;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import tariffs.calculator.vehicletaxtariff.domain.Car;
-import tariffs.calculator.vehicletaxtariff.domain.Bus;
-import tariffs.calculator.vehicletaxtariff.domain.Vehicle;
-import tariffs.calculator.vehicletaxtariff.domain.Foreign;
-import tariffs.calculator.vehicletaxtariff.domain.Military;
-import tariffs.calculator.vehicletaxtariff.domain.Diplomat;
-import tariffs.calculator.vehicletaxtariff.domain.Emergency;
-import tariffs.calculator.vehicletaxtariff.domain.Motorcycle;
-import tariffs.calculator.vehicletaxtariff.repositories.CarRepository;
-import tariffs.calculator.vehicletaxtariff.business.CongestionTaxCalculator;
-import tariffs.calculator.vehicletaxtariff.exception.TariffVehicleNotFoundException;
-
 import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
@@ -23,11 +11,31 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import tariffs.calculator.vehicletaxtariff.domain.Bus;
+import tariffs.calculator.vehicletaxtariff.domain.Car;
+import tariffs.calculator.vehicletaxtariff.domain.Tariff;
+import tariffs.calculator.vehicletaxtariff.domain.Foreign;
+import tariffs.calculator.vehicletaxtariff.domain.Vehicle;
+import tariffs.calculator.vehicletaxtariff.domain.Diplomat;
+import tariffs.calculator.vehicletaxtariff.domain.Military;
+import tariffs.calculator.vehicletaxtariff.domain.Emergency;
+import tariffs.calculator.vehicletaxtariff.domain.Motorcycle;
+import tariffs.calculator.vehicletaxtariff.repositories.CarRepository;
+import tariffs.calculator.vehicletaxtariff.repositories.TariffRepository;
+import tariffs.calculator.vehicletaxtariff.exception.TariffIdException;
+import tariffs.calculator.vehicletaxtariff.business.CongestionTaxCalculator;
+import tariffs.calculator.vehicletaxtariff.exception.TariffTaxDateException;
+import tariffs.calculator.vehicletaxtariff.exception.TariffCityNotFoundException;
+import tariffs.calculator.vehicletaxtariff.exception.TariffVehicleNotFoundException;
+
 @Service
 public class TariffService {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    private TariffRepository tariffRepository;
 
     @Autowired
     private CongestionTaxCalculator congestionTaxCalculator;
@@ -40,34 +48,15 @@ public class TariffService {
 
     /**
      *
-     * @param vehicleType
+     * @param tariff
      * @return
      */
-    public Vehicle getVehicleTariffByVehicleType(String vehicleType) {
-
-        String city = "";
-        // Use highest tariff for the vehicle
-        String date = "2013-01-02 07:00:00";
-        tariffDates = getDateArray(date);
-        theVehicle = this.getVehicleType(vehicleType.toLowerCase());
-        vehicleTax = congestionTaxCalculator.getTax(theVehicle, tariffDates);
-        String vehicle = theVehicle.getVehicleType();
-        return getVehicle(vehicle, Integer.toString(vehicleTax), calendar.getTime().toString(), city);
-    }
-
-    /**
-     *
-     * @param vehicleType
-     * @param date
-     * @return
-     */
-    public Vehicle findVehicleTariffByDateAndVehicleType(String vehicleType, String date) {
-
-        String city = "";
-        theVehicle = this.getVehicleType(vehicleType.toLowerCase());
-        tariffDates = getDateArray(date);
-        vehicleTax = congestionTaxCalculator.getTax(theVehicle, tariffDates);
-        return getVehicle(theVehicle.getVehicleType(), Integer.toString(vehicleTax), calendar.getTime().toString(), city);
+    public Tariff saveOrUpdateProject(Tariff tariff) {
+        try {
+            return tariffRepository.save(tariff);
+        }catch (Exception e) {
+            throw new TariffIdException("Tariff id: '" + tariff.getId() + "' already exists");
+        }
     }
 
     /**
@@ -79,10 +68,22 @@ public class TariffService {
      */
     public Vehicle findVehicleTariffByDateAndVehicleTypeAndCity(String vehicleType, String city, String date) {
 
+        if ( vehicleType == null || vehicleType.isEmpty() ) {
+            throw new TariffVehicleNotFoundException("The Vehicle type is required in order to tax it!");
+        }
+
+        if ( city == null || city.isEmpty() ) {
+            throw new TariffCityNotFoundException("The city is required in order to obtain correct tax tariff!");
+        }
+
+        if ( date == null || date.isEmpty() ) {
+            throw new TariffTaxDateException("The date is required in order to tax the vehicle properly!");
+        }
+
         theVehicle = this.getVehicleType(vehicleType.toLowerCase());
         tariffDates = getDateArray(date);
         vehicleTax = congestionTaxCalculator.getTax(theVehicle, tariffDates);
-        return getVehicle(theVehicle.getVehicleType(), Integer.toString(vehicleTax), calendar.getTime().toString(), city);
+        return getVehicle(theVehicle.getVehicleType(), calendar.getTime().toString(), city);
     }
 
     /**
@@ -144,60 +145,52 @@ public class TariffService {
     /**
      *
      * @param vehicle
-     * @param tariff
      * @param date
      * @param city
      * @return
      */
-    private Vehicle getVehicle(String vehicle, String tariff, String date, String city) {
+    private Vehicle getVehicle(String vehicle, String date, String city) {
         Vehicle vehicleToReturn;
         city = city.isEmpty() ? "Göteborg" : city;
         switch (vehicle) {
             case "car":
                 Car car = new Car();
-                car.setAmount(tariff);
                 car.setDate(date);
                 car.setCity(city);
                 vehicleToReturn = car;
                 break;
             case "bus":
                 Bus bus = new Bus();
-                bus.setAmount(tariff);
                 bus.setDate(date);
                 bus.setCity(city);
                 vehicleToReturn = bus;
                 break;
             case "diplomat":
                 Diplomat diplomat = new Diplomat();
-                diplomat.setAmount(tariff);
                 diplomat.setDate(date);
                 diplomat.setCity(city);
                 vehicleToReturn = diplomat;
                 break;
             case "emergency":
                 Emergency emergency = new Emergency();
-                emergency.setAmount(tariff);
                 emergency.setDate(date);
                 emergency.setCity(city);
                 vehicleToReturn = emergency;
                 break;
             case "foreign":
                 Foreign foreign = new Foreign();
-                foreign.setAmount(tariff);
                 foreign.setDate(date);
                 foreign.setCity(city);
                 vehicleToReturn = foreign;
                 break;
             case "military":
                 Military military = new Military();
-                military.setAmount(tariff);
                 military.setDate(date);
                 military.setCity(city);
                 vehicleToReturn = military;
                 break;
             case "motorcycle":
                 Motorcycle motorcycle = new Motorcycle();
-                motorcycle.setAmount(tariff);
                 motorcycle.setDate(date);
                 motorcycle.setCity(city);
                 vehicleToReturn = motorcycle;

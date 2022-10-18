@@ -53,8 +53,9 @@ public class TestDataCreator {
 
     public static Tariff createTariff() {
         Tariff tariff = new Tariff();
-        tariff.setDate("2013-01-14 21:00:00");
+        tariff.setTimeInterval("06:00–06:29");
         tariff.setCity("Göteborg");
+        tariff.setAmount("8");
         return tariff;
     }
 }
