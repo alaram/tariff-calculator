@@ -8,19 +8,19 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
-import lombok.Builder;
+import lombok.ToString;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
 @Data
-@Builder
+@ToString
+@EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
 public class Tariff {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message = "Time interval is required")
@@ -31,4 +31,16 @@ public class Tariff {
 
     @NotBlank(message = "Tariff amount is required")
     private String amount;
+
+    /**
+     *
+     * @param timeInterval
+     * @param city
+     * @param amount
+     */
+    public Tariff(String timeInterval, String city, String amount) {
+        this.timeInterval = timeInterval;
+        this.city = city;
+        this.amount = amount;
+    }
 }

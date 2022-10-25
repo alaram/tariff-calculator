@@ -1,12 +1,12 @@
 package tariffs.calculator.vehicletaxtariff.repositories;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import tariffs.calculator.vehicletaxtariff.domain.Tariff;
 
 @Repository
-public interface TariffRepository extends CrudRepository<Tariff, Long> {
+public interface TariffRepository extends JpaRepository<Tariff, Long> {
 
     /**
      *
