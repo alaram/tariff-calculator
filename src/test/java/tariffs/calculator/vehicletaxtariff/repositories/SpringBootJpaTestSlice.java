@@ -6,13 +6,17 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import org.springframework.test.annotation.Commit;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import tariffs.calculator.vehicletaxtariff.domain.Tariff;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ComponentScan(basePackages = { "tariffs.calculator.vehicletaxtariff.bootstrap" })
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @DataJpaTest
 public class SpringBootJpaTestSlice {
@@ -33,7 +37,7 @@ public class SpringBootJpaTestSlice {
     @Test
     void testJpaTestSlice() {
         long countBefore = tariffRepository.count();
-        assertThat(countBefore).isEqualTo(0);
+        assertThat(countBefore).isEqualTo(2);
 
         tariffRepository.save(new Tariff("05:00-05:59", "Stockholm", "1"));
 
@@ -47,7 +51,6 @@ public class SpringBootJpaTestSlice {
     void testJpaTestSliceTransaction() {
         long countBefore = tariffRepository.count();
 
-        assertThat(countBefore).isEqualTo(1);
+        assertThat(countBefore).isEqualTo(3);
     }
-
 }

@@ -2,10 +2,12 @@ package tariffs.calculator.vehicletaxtariff.bootstrap;
 
 import org.springframework.stereotype.Component;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 
 import tariffs.calculator.vehicletaxtariff.domain.Tariff;
 import tariffs.calculator.vehicletaxtariff.repositories.TariffRepository;
 
+@Profile({"local", "default"})
 @Component
 public class DataInitializer implements CommandLineRunner {
 
@@ -38,8 +40,10 @@ public class DataInitializer implements CommandLineRunner {
         Tariff tariff_8 = new Tariff("18:00–18:29", "Göteborg", "8");
         Tariff tariff_9 = new Tariff("18:30–05:59", "Göteborg", "0");
 
-        Tariff tariffSaved_1 = tariffRepository.save(tariff_1);
-        Tariff tariffSaved_2 = tariffRepository.save(tariff_2);
+        tariffRepository.deleteAll();
+
+        Tariff tariffSaved_1 = tariffRepository.save(tariff_0);
+        Tariff tariffSaved_2 = tariffRepository.save(tariff_1);
 
         tariffRepository.findAll().forEach(tariff -> {
             System.out.println(tariff.getId());
