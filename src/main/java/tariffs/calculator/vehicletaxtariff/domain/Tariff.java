@@ -32,15 +32,19 @@ public class Tariff {
     @NotBlank(message = "Tariff amount is required")
     private String amount;
 
+    private String year;
+
     /**
      *
      * @param timeInterval
      * @param city
      * @param amount
+     * @param year
      */
-    public Tariff(String timeInterval, String city, String amount) {
+    public Tariff(String timeInterval, String city, String amount, String year) {
         this.timeInterval = timeInterval;
         this.city = city;
         this.amount = amount;
+        this.year = year;
     }
 }

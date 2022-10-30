@@ -29,16 +29,16 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Tariff tariff_0 = new Tariff("06:00–06:29", "Göteborg", "8");
-        Tariff tariff_1 = new Tariff("06:30–06:59", "Göteborg", "13");
-        Tariff tariff_2 = new Tariff("07:00–07:59", "Göteborg", "18");
-        Tariff tariff_3 = new Tariff("08:00–08:29", "Göteborg", "13");
-        Tariff tariff_4 = new Tariff("08:30–14:59", "Göteborg", "8");
-        Tariff tariff_5 = new Tariff("15:00–15:29", "Göteborg", "13");
-        Tariff tariff_6 = new Tariff("15:30–16:59", "Göteborg", "18");
-        Tariff tariff_7 = new Tariff("17:00–17:59", "Göteborg", "13");
-        Tariff tariff_8 = new Tariff("18:00–18:29", "Göteborg", "8");
-        Tariff tariff_9 = new Tariff("18:30–05:59", "Göteborg", "0");
+        Tariff tariff_0 = new Tariff("06:00–06:29", "Göteborg", "8", "2013");
+        Tariff tariff_1 = new Tariff("06:30–06:59", "Göteborg", "13", "2013");
+        Tariff tariff_2 = new Tariff("07:00–07:59", "Göteborg", "18", "2013");
+        Tariff tariff_3 = new Tariff("08:00–08:29", "Göteborg", "13", "2013");
+        Tariff tariff_4 = new Tariff("08:30–14:59", "Göteborg", "8", "2013");
+        Tariff tariff_5 = new Tariff("15:00–15:29", "Göteborg", "13", "2013");
+        Tariff tariff_6 = new Tariff("15:30–16:59", "Göteborg", "18", "2013");
+        Tariff tariff_7 = new Tariff("17:00–17:59", "Göteborg", "13", "2013");
+        Tariff tariff_8 = new Tariff("18:00–18:29", "Göteborg", "8", "2013");
+        Tariff tariff_9 = new Tariff("18:30–05:59", "Göteborg", "0", "2013");
 
         tariffRepository.deleteAll();
 

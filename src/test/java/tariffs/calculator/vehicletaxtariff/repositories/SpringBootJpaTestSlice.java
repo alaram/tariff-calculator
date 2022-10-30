@@ -39,7 +39,7 @@ public class SpringBootJpaTestSlice {
         long countBefore = tariffRepository.count();
         assertThat(countBefore).isEqualTo(2);
 
-        tariffRepository.save(new Tariff("05:00-05:59", "Stockholm", "1"));
+        tariffRepository.save(new Tariff("05:00-05:59", "Stockholm", "1", "2013"));
 
         long countAfter = tariffRepository.count();
 
