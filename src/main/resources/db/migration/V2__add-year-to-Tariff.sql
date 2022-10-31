@@ -1,0 +1,1 @@
+alter table tariff ADD year varchar(255);

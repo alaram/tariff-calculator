@@ -39,7 +39,6 @@ public class Tariff {
      * @param timeInterval
      * @param city
      * @param amount
-     * @param year
      */
     public Tariff(String timeInterval, String city, String amount, String year) {
         this.timeInterval = timeInterval;

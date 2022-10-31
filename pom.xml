@@ -21,13 +21,10 @@
 
     <properties>
         <!-- Dependencies -->
+        <flyway.version>9.6.0</flyway.version>
         <lombok.version>1.18.22</lombok.version>
         <mockito-core.version>3.7.0</mockito-core.version>
-        <javax-persistence-api.version>2.2</javax-persistence-api.version>
         <javax-validation.version>2.0.0.Final</javax-validation.version>
-
-        <!-- Plugins -->
-        <liquibase-maven-plugin.version>4.9.0</liquibase-maven-plugin.version>
 
         <!-- Project specific -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -88,8 +85,12 @@
             <version>${postgresql.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
         </dependency>
 
         <!-- Test support -->
@@ -150,27 +151,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase-maven-plugin.version}</version>
-                <configuration>
-                    <url>jdbc:mysql://127.0.0.1:3306/tariffdb?user=tariffadmin&amp;password=password&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</url>
-                    <username>tariffadmin</username>
-                    <password>password</password>
-                    <outputChangeLogFile>changelog.xml</outputChangeLogFile>
-                    <changeSetAuthor>AR</changeSetAuthor>
-                    <changelogSchemaName>tariffdb</changelogSchemaName>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
         </plugins>
