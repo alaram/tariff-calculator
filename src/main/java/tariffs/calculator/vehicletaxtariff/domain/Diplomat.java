@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Diplomat implements Vehicle {
 
-    @JsonFormat(pattern = "yyyyy-mm-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-mm-dd HH:mm:ss")
     private String date;
 
     private String vehicleType;
