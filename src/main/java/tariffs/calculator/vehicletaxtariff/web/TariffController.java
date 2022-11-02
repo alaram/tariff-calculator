@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import tariffs.calculator.vehicletaxtariff.domain.Tariff;
 import tariffs.calculator.vehicletaxtariff.domain.Vehicle;
-import tariffs.calculator.vehicletaxtariff.service.MapValidationErrorService;
 import tariffs.calculator.vehicletaxtariff.service.TariffService;
+import tariffs.calculator.vehicletaxtariff.service.MapValidationErrorService;
 
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -35,15 +35,14 @@ public class TariffController {
     /**
      *
      * @param tariff
-     * @param bindingResult
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<?> createNewTariff(@Valid @RequestBody Tariff tariff, BindingResult bindingResult) {
+    public ResponseEntity<?> createNewTariff(@Valid @RequestBody Tariff tariff) { //, BindingResult bindingResult
 
-        ResponseEntity<?> errorMap =  mapValidationErrorService.MapValidationService(bindingResult);
-        if (errorMap != null)
-            return errorMap;
+        //ResponseEntity<?> errorMap =  mapValidationErrorService.MapValidationService(bindingResult);
+        //if (errorMap != null)
+        //    return errorMap;
 
         Tariff newTariff = tariffService.saveOrUpdateProject(tariff);
         return new ResponseEntity<>(newTariff, CREATED);

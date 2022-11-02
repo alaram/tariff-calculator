@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class TariffTest {
 
     @Test
-    public void testCreateTariff() {
+    void testCreateTariff() {
         Tariff tariff = TestDataCreator.createTariff();
         assertNotNull(tariff);
         assertEquals(Integer.toString(8), tariff.getAmount());

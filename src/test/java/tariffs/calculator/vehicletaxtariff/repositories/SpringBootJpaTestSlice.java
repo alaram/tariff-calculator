@@ -6,6 +6,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,10 +16,13 @@ import tariffs.calculator.vehicletaxtariff.domain.Tariff;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ComponentScan(basePackages = { "tariffs.calculator.vehicletaxtariff.bootstrap" })
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
+
 @DataJpaTest
+@ActiveProfiles("local")
+@AutoConfigureTestDatabase(replace = NONE)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ComponentScan(basePackages = { "tariffs.calculator.vehicletaxtariff.bootstrap" })
 public class SpringBootJpaTestSlice {
 
     @Autowired

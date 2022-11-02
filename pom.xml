@@ -23,18 +23,17 @@
         <!-- Dependencies -->
         <lombok.version>1.18.22</lombok.version>
         <mockito-core.version>3.7.0</mockito-core.version>
-        <javax-persistence-api.version>2.2</javax-persistence-api.version>
         <javax-validation.version>2.0.0.Final</javax-validation.version>
 
         <!-- Plugins -->
         <liquibase-maven-plugin.version>4.9.0</liquibase-maven-plugin.version>
 
         <!-- Project specific -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
         <java-source.version>11</java-source.version>
         <java-target.version>11</java-target.version>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
@@ -115,6 +114,21 @@
                     <artifactId>h2</artifactId>
                 </dependency>
             </dependencies>
+            <properties>
+                <spring.profiles.active>h2</spring.profiles.active>
+                <environment>in-memory-db</environment>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.profiles.active>local</spring.profiles.active>
+                <environment>local</environment>
+            </properties>
         </profile>
 
     </profiles>

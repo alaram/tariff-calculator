@@ -59,7 +59,7 @@ public class CongestionTaxCalculatorTest {
     }
 
     @Test
-    public void getTaxVehicleBusTest() {
+    void getTaxVehicleBusTest() {
 
         Vehicle vehicle = TestDataCreator.createBus();
         assertNotNull(vehicle);
@@ -68,7 +68,7 @@ public class CongestionTaxCalculatorTest {
     }
 
     @Test
-    public void getTaxVehicleDiplomatTest() {
+    void getTaxVehicleDiplomatTest() {
 
         Vehicle vehicle = TestDataCreator.createDiplomat();
         assertNotNull(vehicle);
@@ -77,7 +77,7 @@ public class CongestionTaxCalculatorTest {
     }
 
     @Test
-    public void getTaxVehicleCar_Tariff_1_Test() {
+    void getTaxVehicleCar_Tariff_1_Test() {
 
         Vehicle vehicle = TestDataCreator.createCar();
         assertNotNull(vehicle);
@@ -86,7 +86,7 @@ public class CongestionTaxCalculatorTest {
     }
 
     @Test
-    public void getTaxVehicleCar_Tariff_2_Test() {
+    void getTaxVehicleCar_Tariff_2_Test() {
 
         Vehicle vehicle = TestDataCreator.createCar();
         assertNotNull(vehicle);
@@ -95,7 +95,7 @@ public class CongestionTaxCalculatorTest {
     }
 
     @Test
-    public void getTaxVehicleCar_Tariff_3_Test() {
+    void getTaxVehicleCar_Tariff_3_Test() {
 
         Vehicle vehicle = TestDataCreator.createCar();
         assertNotNull(vehicle);

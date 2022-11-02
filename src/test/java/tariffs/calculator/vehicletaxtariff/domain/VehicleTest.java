@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class VehicleTest {
 
     @Test
-    public void testCreateVehicleTypeCar() {
+    void testCreateVehicleTypeCar() {
         Vehicle vehicle = TestDataCreator.createCar();
         assertNotNull(vehicle);
         assertEquals("car", vehicle.getVehicleType());
@@ -16,7 +16,7 @@ public class VehicleTest {
     }
 
     @Test
-    public void testCreateVehicleTypeBus() {
+    void testCreateVehicleTypeBus() {
         Vehicle vehicle = TestDataCreator.createBus();
         assertNotNull(vehicle);
         assertEquals("bus", vehicle.getVehicleType());
