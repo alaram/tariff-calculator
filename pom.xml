@@ -20,12 +20,17 @@
     <description>Vehicle Tax tariff calculator POC</description>
 
     <properties>
+
         <!-- Dependencies -->
         <lombok.version>1.18.22</lombok.version>
         <mockito-core.version>3.7.0</mockito-core.version>
         <javax-validation.version>2.0.0.Final</javax-validation.version>
+        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
+        <springfox-swagger-ui.version>3.0.0</springfox-swagger-ui.version>
+        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
 
         <!-- Plugins -->
+        <swagger-maven-plugin.version>3.1.7</swagger-maven-plugin.version>
         <liquibase-maven-plugin.version>4.9.0</liquibase-maven-plugin.version>
 
         <!-- Project specific -->
@@ -34,6 +39,7 @@
         <java-target.version>11</java-target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
     </properties>
 
     <dependencies>
@@ -70,6 +76,24 @@
             <artifactId>validation-api</artifactId>
             <version>${javax-validation.version}</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
 
         <!-- Database support and database migration -->
         <dependency>
@@ -187,7 +211,63 @@
                 </dependencies>
             </plugin>
 
+            <plugin>
+                <groupId>com.github.kongchen</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>${swagger-maven-plugin.version}</version>
+                <configuration>
+                    <apiSources>
+                        <apiSource>
+                            <springmvc>true</springmvc>
+                            <locations>
+                                <location>tariffs.calculator.vehicletaxtariff.web</location>
+                            </locations>
+                            <info>
+                                <title>Vehicle Tariff Calculator API</title>
+                                <version>1.0</version>
+                            </info>
+                            <!--
+                            <securityDefinitions>
+                                <securityDefinition>
+                                    <name>basicAuth</name>
+                                    <type>basic</type>
+                                </securityDefinition>
+                            </securityDefinitions>
+                            -->
+                            <!-- The setting below makes "swagger" the maven artifact classifier -->
+                            <swaggerDirectory>${project.build.directory}/generated-sources/swagger</swaggerDirectory>
+                            <attachSwaggerArtifact>true</attachSwaggerArtifact>
+                            <outputFormats>json</outputFormats>
+                        </apiSource>
+                    </apiSources>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
+
+    <!-- As this is SNAPSHOT version, a required repository for JFROG-snapshots needs to be added -->
+    <!--
+    <repositories>
+
+        <repository>
+            <id>jfrog-snapshots</id>
+            <name>JFROG Snapshots</name>
+            <url>http://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+    -->
 
 </project>

@@ -25,3 +25,18 @@ the tariffs work for the city of Gothemburg and can be implemented for other cit
 
 A simple front-end can be created and also swagger could be introduced to apply the calls in a GUI friendly 
 way. Consider to use postman for testing the REST Api.
+
+
+The most important design principle for RESTful Services is
+Think about consumer of the API.
+
+How does the consumer know
+
+What is format of the request?
+What content types your API supports?
+What is the structure of the response?
+Do you use HATEOAS?
+How to test your API?
+What kind of security mechanism you use?
+
+REST does not specify a documentation standard or a contract like SOAP (WSDL). REST gives you the flexibility to choose your documentation format and approach. But that does not mean “No documentation”

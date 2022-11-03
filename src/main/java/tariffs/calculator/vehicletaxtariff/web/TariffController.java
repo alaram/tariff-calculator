@@ -2,6 +2,10 @@ package tariffs.calculator.vehicletaxtariff.web;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiOperation;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +24,12 @@ import tariffs.calculator.vehicletaxtariff.service.MapValidationErrorService;
 
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/tariff")
+@Api(tags= { "TariffController" })
 public class TariffController {
 
     @Autowired
@@ -37,8 +43,18 @@ public class TariffController {
      * @param tariff
      * @return
      */
-    @PostMapping("/create")
-    public ResponseEntity<?> createNewTariff(@Valid @RequestBody Tariff tariff) { //, BindingResult bindingResult
+    @PostMapping(value = "/create",
+                 consumes = APPLICATION_JSON_VALUE,
+                 produces = APPLICATION_JSON_VALUE,
+                 headers = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Creates a Tariff based on a valid object, i.e. timestamp, city, amount and year (optional).",
+                  notes = "This operation requires to send a timestamp in the right format in order to persist on the DB.",
+                  consumes = APPLICATION_JSON_VALUE,
+                  produces = APPLICATION_JSON_VALUE,
+                  httpMethod = "POST",
+                  code = 201)
+    public ResponseEntity<?> createNewTariff(@ApiParam(value="A valid well formed Tariff object")
+                                             @Valid @RequestBody Tariff tariff) { //, BindingResult bindingResult
 
         //ResponseEntity<?> errorMap =  mapValidationErrorService.MapValidationService(bindingResult);
         //if (errorMap != null)
