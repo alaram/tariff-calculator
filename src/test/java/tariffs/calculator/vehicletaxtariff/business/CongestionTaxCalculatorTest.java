@@ -19,7 +19,7 @@ import tariffs.calculator.vehicletaxtariff.domain.TestDataCreator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class CongestionTaxCalculatorTest {
+class CongestionTaxCalculatorTest {
 
     private CongestionTaxCalculator congestionTaxCalculator = new CongestionTaxCalculator();
 
@@ -112,7 +112,7 @@ public class CongestionTaxCalculatorTest {
         Calendar calendar = Calendar.getInstance();
         List<Date> tariffList = new ArrayList<>();
         try {
-            DateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+            DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             calendar.setTime(sdf.parse(date));
             tariffList.add(calendar.getTime());
         }

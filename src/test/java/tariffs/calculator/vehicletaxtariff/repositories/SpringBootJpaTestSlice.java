@@ -23,7 +23,7 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @AutoConfigureTestDatabase(replace = NONE)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ComponentScan(basePackages = { "tariffs.calculator.vehicletaxtariff.bootstrap" })
-public class SpringBootJpaTestSlice {
+class SpringBootJpaTestSlice {
 
     @Autowired
     TariffRepository tariffRepository;

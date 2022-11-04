@@ -16,7 +16,7 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @ActiveProfiles("local")
 @AutoConfigureTestDatabase(replace = NONE)
 @ComponentScan(basePackages = { "tariffs.calculator.vehicletaxtariff.bootstrap" })
-public class MySQLIntegrationTest {
+class MySQLIntegrationTest {
 
     @Autowired
     TariffRepository tariffRepository;

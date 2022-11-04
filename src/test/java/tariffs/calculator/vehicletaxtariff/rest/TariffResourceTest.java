@@ -30,7 +30,7 @@ import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @ExtendWith(MockitoExtension.class)
-public class TariffResourceTest {
+class TariffResourceTest {
 
     @Mock
     private TariffService tariffService;
