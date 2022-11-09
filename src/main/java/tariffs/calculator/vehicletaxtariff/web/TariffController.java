@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class TariffController {
                   produces = APPLICATION_JSON_VALUE,
                   httpMethod = "POST",
                   code = 201)
-    public ResponseEntity<?> createNewTariff(@ApiParam(value="A valid well formed Tariff object")
+    public ResponseEntity<?> createTariff(@ApiParam(value="A valid well formed Tariff object")
                                              @Valid @RequestBody Tariff tariff) { //, BindingResult bindingResult
 
         //ResponseEntity<?> errorMap =  mapValidationErrorService.MapValidationService(bindingResult);
@@ -62,6 +63,27 @@ public class TariffController {
 
         Tariff newTariff = tariffService.saveOrUpdateProject(tariff);
         return new ResponseEntity<>(newTariff, CREATED);
+    }
+
+    /**
+     *
+     * @param tariffId
+     * @return
+     */
+    @PostMapping(value = "/remove/{tariffId}",
+                   consumes = APPLICATION_JSON_VALUE,
+                   produces = APPLICATION_JSON_VALUE,
+                   headers = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Tariff's id to remove.",
+                  notes = "Removes a Tariff based on entity's ID, this value is required to remove the tariff.",
+                  consumes = APPLICATION_JSON_VALUE,
+                  produces = APPLICATION_JSON_VALUE,
+                  httpMethod = "POST",
+                  code = 200)
+    public ResponseEntity<?> removeTariff(@ApiParam(value="Tariff's id") @PathVariable Long tariffId) {
+
+        tariffService.removeTariff(tariffId);
+        return new ResponseEntity<>("Tariff with id '" + tariffId + "' was removed", OK);
     }
 
     /**

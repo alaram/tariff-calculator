@@ -49,7 +49,7 @@ class TariffResourceTest {
 
         Tariff tariff = TestDataCreator.createTariff();
         lenient().when(tariffService.saveOrUpdateProject(any(Tariff.class))).thenReturn(tariff);
-        ResponseEntity responseEntity = tariffController.createNewTariff(tariff);
+        ResponseEntity responseEntity = tariffController.createTariff(tariff);
         assertNotNull(responseEntity);
         assertThat(tariff).isInstanceOf(Tariff.class);
         assertEquals(CREATED, responseEntity.getStatusCode());

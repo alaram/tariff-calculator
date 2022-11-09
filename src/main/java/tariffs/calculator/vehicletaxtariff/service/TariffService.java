@@ -44,7 +44,7 @@ public class TariffService {
     private Vehicle theVehicle;
     private Date[] tariffDates = {};
     private Calendar calendar = Calendar.getInstance();
-    private static final String DATE_FORMAT = "yyyyy-mm-dd HH:mm:ss";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     /**
      *
@@ -57,6 +57,14 @@ public class TariffService {
         }catch (Exception e) {
             throw new TariffIdException("Tariff id: '" + tariff.getId() + "' already exists");
         }
+    }
+
+    /**
+     *
+     * @param tariffId
+     */
+    public void removeTariff(Long tariffId) {
+        tariffRepository.delete(tariffRepository.getReferenceById(tariffId));
     }
 
     /**
