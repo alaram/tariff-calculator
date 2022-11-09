@@ -56,7 +56,17 @@ class TariffResourceTest {
     }
 
     @Test
+    void removeTariffTest() {
+
+        Tariff tariff = TestDataCreator.createTariff();
+        lenient().when(tariffService.saveOrUpdateProject(any(Tariff.class))).thenReturn(tariff);
+        ResponseEntity responseEntity = tariffController.removeTariff(tariff.getId());
+        assertEquals(OK, responseEntity.getStatusCode());
+    }
+
+    @Test
     void carTariffWithDateAndVehicleTypeAndCityTest() {
+
         Vehicle vehicle = TestDataCreator.createCar();
         lenient().when(tariffService.findVehicleTariffByDateAndVehicleTypeAndCity(anyString(), anyString(), anyString())).thenReturn(vehicle);
         ResponseEntity responseEntity = tariffController.getVehicleTariffByDateAndVehicleTypeAndCity(anyString(), anyString(), anyString());
