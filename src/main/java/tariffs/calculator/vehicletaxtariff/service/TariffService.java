@@ -20,9 +20,9 @@ import tariffs.calculator.vehicletaxtariff.domain.Diplomat;
 import tariffs.calculator.vehicletaxtariff.domain.Military;
 import tariffs.calculator.vehicletaxtariff.domain.Emergency;
 import tariffs.calculator.vehicletaxtariff.domain.Motorcycle;
+import tariffs.calculator.vehicletaxtariff.exception.TariffIdException;
 import tariffs.calculator.vehicletaxtariff.repositories.CarRepository;
 import tariffs.calculator.vehicletaxtariff.repositories.TariffRepository;
-import tariffs.calculator.vehicletaxtariff.exception.TariffIdException;
 import tariffs.calculator.vehicletaxtariff.business.CongestionTaxCalculator;
 import tariffs.calculator.vehicletaxtariff.exception.TariffTaxDateException;
 import tariffs.calculator.vehicletaxtariff.exception.TariffCityNotFoundException;
@@ -48,14 +48,38 @@ public class TariffService {
 
     /**
      *
+     * @return
+     */
+    public List<Tariff> getTariffs() {
+        return tariffRepository.findAll();
+    }
+
+    /**
+     *
+     * @param tariffId
+     * @return
+     */
+    public Tariff getTariff(Long tariffId) {
+
+        Tariff saved = tariffRepository.getReferenceById(tariffId);
+
+        if (saved == null) {
+            throw new TariffIdException("Tariff with id: '" + tariffId + "' does not exists.");
+        }
+
+        return saved;
+    }
+
+    /**
+     *
      * @param tariff
      * @return
      */
     public Tariff saveOrUpdateProject(Tariff tariff) {
         try {
             return tariffRepository.save(tariff);
-        }catch (Exception e) {
-            throw new TariffIdException("Tariff id: '" + tariff.getId() + "' already exists");
+        } catch (Exception e) {
+            throw new TariffIdException("Tariff id: '" + tariff.getId() + "' already exists.");
         }
     }
 

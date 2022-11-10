@@ -41,6 +41,43 @@ public class TariffController {
 
     /**
      *
+     * @return
+     */
+    @GetMapping(value = "/all",
+                consumes = APPLICATION_JSON_VALUE,
+                produces = APPLICATION_JSON_VALUE,
+                headers = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "",
+                  notes = "Retrieve all tariffs.",
+                  consumes = APPLICATION_JSON_VALUE,
+                  produces = APPLICATION_JSON_VALUE,
+                  httpMethod = "GET",
+                  code = 200)
+    public ResponseEntity<?> retrieveTariffs() {
+        return new ResponseEntity<>(tariffService.getTariffs(), OK);
+    }
+
+    /**
+     *
+     * @param tariffId
+     * @return
+     */
+    @GetMapping(value = "/retrieve/{tariffId}",
+                consumes = APPLICATION_JSON_VALUE,
+                produces = APPLICATION_JSON_VALUE,
+                headers = APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Tariff's id to retrieve.",
+                  notes = "Retrieve a Tariff based on entity's ID, this value is required to remove the tariff.",
+                  consumes = APPLICATION_JSON_VALUE,
+                  produces = APPLICATION_JSON_VALUE,
+                  httpMethod = "GET",
+                  code = 200)
+    public ResponseEntity<?> retrieveTariff(@ApiParam(value="Tariff's id") @PathVariable Long tariffId) {
+        return new ResponseEntity<>(tariffService.getTariff(tariffId), OK);
+    }
+
+    /**
+     *
      * @param tariff
      * @return
      */
@@ -55,14 +92,12 @@ public class TariffController {
                   httpMethod = "POST",
                   code = 201)
     public ResponseEntity<?> createTariff(@ApiParam(value="A valid well formed Tariff object")
-                                             @Valid @RequestBody Tariff tariff) { //, BindingResult bindingResult
+                                          @Valid @RequestBody Tariff tariff) { //, BindingResult bindingResult
 
         //ResponseEntity<?> errorMap =  mapValidationErrorService.MapValidationService(bindingResult);
         //if (errorMap != null)
         //    return errorMap;
-
-        Tariff newTariff = tariffService.saveOrUpdateProject(tariff);
-        return new ResponseEntity<>(newTariff, CREATED);
+        return new ResponseEntity<>(tariffService.saveOrUpdateProject(tariff), CREATED);
     }
 
     /**
@@ -70,7 +105,7 @@ public class TariffController {
      * @param tariffId
      * @return
      */
-    @PostMapping(value = "/remove/{tariffId}",
+    @DeleteMapping(value = "/remove/{tariffId}",
                    consumes = APPLICATION_JSON_VALUE,
                    produces = APPLICATION_JSON_VALUE,
                    headers = APPLICATION_JSON_VALUE)
@@ -81,7 +116,6 @@ public class TariffController {
                   httpMethod = "POST",
                   code = 200)
     public ResponseEntity<?> removeTariff(@ApiParam(value="Tariff's id") @PathVariable Long tariffId) {
-
         tariffService.removeTariff(tariffId);
         return new ResponseEntity<>("Tariff with id '" + tariffId + "' was removed", OK);
     }

@@ -57,18 +57,4 @@ class SpringBootJpaTestSlice {
 
         assertThat(countBefore).isEqualTo(3);
     }
-
-    @Order(3)
-    @Test
-    void testRemoveTariff() {
-        Tariff saved = tariffRepository.getReferenceById(1L);
-
-        assertThat(saved).isNotNull();
-
-        tariffRepository.delete(saved);
-
-        long countBefore = tariffRepository.count();
-
-        assertThat(countBefore).isEqualTo(2);
-    }
 }

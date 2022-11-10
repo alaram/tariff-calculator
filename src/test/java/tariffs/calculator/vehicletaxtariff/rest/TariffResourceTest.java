@@ -1,6 +1,10 @@
 package tariffs.calculator.vehicletaxtariff.rest;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.mockito.Mock;
@@ -32,6 +36,8 @@ import static org.springframework.http.HttpStatus.CREATED;
 @ExtendWith(MockitoExtension.class)
 class TariffResourceTest {
 
+    private List<ResponseEntity> tariffList = new ArrayList<>();
+
     @Mock
     private TariffService tariffService;
 
@@ -40,6 +46,50 @@ class TariffResourceTest {
 
     @InjectMocks
     private TariffController tariffController;
+
+    /*@BeforeAll
+    void setup() {
+
+        Tariff tariff_0 = new Tariff("06:00–06:29", "Göteborg", "8", "2013");
+        Tariff tariff_1 = new Tariff("06:30–06:59", "Göteborg", "13", "2013");
+        Tariff tariff_2 = new Tariff("07:00–07:59", "Göteborg", "18", "2013");
+        Tariff tariff_3 = new Tariff("08:00–08:29", "Göteborg", "13", "2013");
+        Tariff tariff_4 = new Tariff("08:30–14:59", "Göteborg", "8", "2013");
+
+        ResponseEntity saved_0 = tariffController.createTariff(tariff_0);
+        ResponseEntity saved_1 = tariffController.createTariff(tariff_1);
+        ResponseEntity saved_2 = tariffController.createTariff(tariff_2);
+        ResponseEntity saved_3 = tariffController.createTariff(tariff_3);
+        ResponseEntity saved_4 = tariffController.createTariff(tariff_4);
+
+        tariffList.add(saved_0);
+        tariffList.add(saved_1);
+        tariffList.add(saved_2);
+        tariffList.add(saved_3);
+        tariffList.add(saved_4);
+    }*/
+
+
+    @Test
+    void retrieveTariffsTest() {
+        assertThat(true);
+    }
+
+    @Test
+    void retrieveTariffTest() {
+
+        Tariff tariff = TestDataCreator.createTariff();
+        lenient().when(tariffService.saveOrUpdateProject(any(Tariff.class))).thenReturn(tariff);
+        ResponseEntity responseEntity = tariffController.createTariff(tariff);
+        assertNotNull(responseEntity);
+        assertThat(tariff).isInstanceOf(Tariff.class);
+        assertEquals(CREATED, responseEntity.getStatusCode());
+
+        lenient().when(tariffService.getTariff(tariff.getId())).thenReturn(tariff);
+        ResponseEntity responseEntitySaved = tariffController.retrieveTariff(tariff.getId());
+        assertNotNull(responseEntitySaved);
+        assertEquals(OK, responseEntitySaved.getStatusCode());
+    }
 
     @Test
     void createTariffTest() {
